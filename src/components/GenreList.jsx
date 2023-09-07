@@ -7,7 +7,7 @@ const GenreList = () => {
 
   const getgenreList = () => {
     GlobalApi.getgenreList.then((resp) => {
-      console.log(resp.data.results);
+      // console.log(resp.data.results);
       setGenreList(resp.data.results);
     });
   };
@@ -18,33 +18,32 @@ const GenreList = () => {
 
   return (
     <div>
-      <h2 className="text-[30px] font-bold dark:text-white">
-        Genre
-        {genreList.map((item, index) => (
-          <div
-            onClick={() => setActiveIndex(index)}
-            className={`flex gap-2 items-center mb-2 cursor-pointer hover:bg-gray-300 p-2 group rounded-lg hover:dark:bg-gray-600 ${
-              activeIndex == index ? "bg-gray-300 dark:bg-gray-600" : null
+      <h2 className="text-[30px] font-bold dark:text-white">Genre</h2>
+      {genreList.map((item, index) => (
+        <div
+          key={index}
+          onClick={() => setActiveIndex(index)}
+          className={`flex gap-2 items-center cursor-pointer group  transition-all duration-300 rounded-lg p-3  ${
+            activeIndex == index ? "bg-gray-300 dark:bg-gray-600" : null
+          }`}
+        >
+          <img
+            src={item.image_background}
+            className={`w-[40px] h-[40px] object-cover rounded-lg group-hover:scale-110 transition-all duration-300 ${
+              activeIndex == index ? "scale-110" : null
             }`}
-          >
-            <img
-              src={item.image_background}
-              className={`w-[40px] h-[40px] object-cover rounded-lg group-hover:scale-105 transition-all ease-out duration-300 ${
-                activeIndex == index ? "scale-110" : null
+          />
+          <div>
+            <h2
+              className={`text-[18px] dark:text-white group-hover:font-bold transition-all duration-300 ${
+                activeIndex == index ? "font-bold" : null
               }`}
-            />
-            <div>
-              <h2
-                className={`text-[18px] dark:text-white group-hover:font-bold transition-all duration-300 ${
-                  activeIndex == index ? "font-bold" : null
-                }`}
-              >
-                {item.name}
-              </h2>
-            </div>
+            >
+              {item.name}
+            </h2>
           </div>
-        ))}
-      </h2>
+        </div>
+      ))}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GlobalApi from "../services/GlobalApi";
 
-const GenreList = () => {
+const GenreList = ({ selectedGenreId, selectedGenreName }) => {
   const [genreList, setGenreList] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -22,7 +22,11 @@ const GenreList = () => {
       {genreList.map((item, index) => (
         <div
           key={index}
-          onClick={() => setActiveIndex(index)}
+          onClick={() => {
+            setActiveIndex(index);
+            selectedGenreId(item.id);
+            selectedGenreName(item.name);
+          }}
           className={`flex gap-2 items-center cursor-pointer group  transition-all duration-300 rounded-lg p-3  ${
             activeIndex == index ? "bg-gray-300 dark:bg-gray-600" : null
           }`}
